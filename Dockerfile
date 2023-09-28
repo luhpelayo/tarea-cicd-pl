@@ -1,8 +1,10 @@
-# Usa una imagen base ligera de Alpine Linux
-FROM alpine:latest
-
-# Etiqueta del creador (opcional)
-LABEL maintainer="Tu Nombre luhpelayo@gmail.com"
-
-# Comando a ejecutar cuando se inicie el contenedor
-CMD ["echo", "Hola, mundo"]
+FROM node:alpine
+WORKDIR /app
+COPY package*.json .
+RUN npm install
+COPY . .
+ENV API_URL=http://default-api-url.com
+RUN npm run build
+EXPOSE 3000
+CMD [ "echo","$API_URL"]
+CMD [ "npm","start" ]
